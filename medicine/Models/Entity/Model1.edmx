@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MedicineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KULLANICIADI" Type="varchar" MaxLength="15" />
+          <Property Name="PAROLA" Type="varchar" MaxLength="15" />
+          <Property Name="YETKI" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Cekler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CEKADI" Type="varchar(max)" />
+          <Property Name="TARIH" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tbl_Kategoriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KATEGORIADI" Type="varchar" MaxLength="50" />
+          <Property Name="DURUM" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_SiparisDetay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SIPARISID" Type="int" />
+          <Property Name="URUNID" Type="int" />
+          <Property Name="ADET" Type="int" />
+          <Property Name="BIRIMFIYAT" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FIYAT" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AY" Type="varchar" MaxLength="50" />
+          <Property Name="YIL" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Siparisler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SIPARISADI" Type="varchar(max)" />
+          <Property Name="TARIH" Type="datetime" />
+          <Property Name="KDV" Type="varchar" MaxLength="50" />
+          <Property Name="KAR" Type="varchar" MaxLength="50" />
+          <Property Name="DURUM" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_Urunler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RESIM" Type="varchar(max)" />
+          <Property Name="URUNAD" Type="varchar(max)" />
+          <Property Name="KATEGORI" Type="int" />
+          <Property Name="ACIKLAMA" Type="varchar(max)" />
+          <Property Name="BARKOD" Type="varchar(max)" />
+          <Property Name="STOK" Type="int" />
+          <Property Name="FIYAT" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DURUM" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Tbl_SiparisDetay_Tbl_Urunler">
+          <End Role="Tbl_Urunler" Type="Self.Tbl_Urunler" Multiplicity="0..1" />
+          <End Role="Tbl_SiparisDetay" Type="Self.Tbl_SiparisDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_SiparisDetay">
+              <PropertyRef Name="URUNID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Urunler_Tbl_Kategoriler">
+          <End Role="Tbl_Kategoriler" Type="Self.Tbl_Kategoriler" Multiplicity="0..1" />
+          <End Role="Tbl_Urunler" Type="Self.Tbl_Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kategoriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Urunler">
+              <PropertyRef Name="KATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MedicineModelStoreContainer">
+          <EntitySet Name="Tbl_Admin" EntityType="Self.Tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cekler" EntityType="Self.Tbl_Cekler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Kategoriler" EntityType="Self.Tbl_Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_SiparisDetay" EntityType="Self.Tbl_SiparisDetay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Siparisler" EntityType="Self.Tbl_Siparisler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Urunler" EntityType="Self.Tbl_Urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_SiparisDetay_Tbl_Urunler" Association="Self.FK_Tbl_SiparisDetay_Tbl_Urunler">
+            <End Role="Tbl_Urunler" EntitySet="Tbl_Urunler" />
+            <End Role="Tbl_SiparisDetay" EntitySet="Tbl_SiparisDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Urunler_Tbl_Kategoriler" Association="Self.FK_Tbl_Urunler_Tbl_Kategoriler">
+            <End Role="Tbl_Kategoriler" EntitySet="Tbl_Kategoriler" />
+            <End Role="Tbl_Urunler" EntitySet="Tbl_Urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MedicineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Urunler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URUNAD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="STOK" Type="Int32" />
+          <Property Name="DURUM" Type="Boolean" />
+          <Property Name="ACIKLAMA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="KATEGORI" Type="Int32" />
+          <NavigationProperty Name="Tbl_Kategoriler" Relationship="MedicineModel.FK_Tbl_Urunler_Tbl_Kategoriler" FromRole="Tbl_Urunler" ToRole="Tbl_Kategoriler" />
+          <Property Name="RESIM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_SiparisDetay" Relationship="MedicineModel.FK_Tbl_SiparisDetay_Tbl_Urunler" FromRole="Tbl_Urunler" ToRole="Tbl_SiparisDetay" />
+          <Property Name="FIYAT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BARKOD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="MedicineEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Urunler" EntityType="Self.Tbl_Urunler" />
+          <EntitySet Name="Tbl_Kategoriler" EntityType="MedicineModel.Tbl_Kategoriler" />
+          <AssociationSet Name="FK_Tbl_Urunler_Tbl_Kategoriler" Association="MedicineModel.FK_Tbl_Urunler_Tbl_Kategoriler">
+            <End Role="Tbl_Kategoriler" EntitySet="Tbl_Kategoriler" />
+            <End Role="Tbl_Urunler" EntitySet="Tbl_Urunler" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Admin" EntityType="MedicineModel.Tbl_Admin" />
+          <EntitySet Name="Tbl_SiparisDetay" EntityType="MedicineModel.Tbl_SiparisDetay" />
+          <EntitySet Name="Tbl_Siparisler" EntityType="MedicineModel.Tbl_Siparisler" />
+          <AssociationSet Name="FK_Tbl_SiparisDetay_Tbl_Urunler" Association="MedicineModel.FK_Tbl_SiparisDetay_Tbl_Urunler">
+            <End Role="Tbl_Urunler" EntitySet="Tbl_Urunler" />
+            <End Role="Tbl_SiparisDetay" EntitySet="Tbl_SiparisDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_SiparisDetay_Tbl_Siparisler" Association="MedicineModel.FK_Tbl_SiparisDetay_Tbl_Siparisler">
+            <End Role="Tbl_Siparisler" EntitySet="Tbl_Siparisler" />
+            <End Role="Tbl_SiparisDetay" EntitySet="Tbl_SiparisDetay" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Cekler" EntityType="MedicineModel.Tbl_Cekler" />
+        </EntityContainer>
+        <EntityType Name="Tbl_Kategoriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KATEGORIADI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DURUM" Type="Boolean" />
+          <NavigationProperty Name="Tbl_Urunler" Relationship="MedicineModel.FK_Tbl_Urunler_Tbl_Kategoriler" FromRole="Tbl_Kategoriler" ToRole="Tbl_Urunler" />
+        </EntityType>
+        <Association Name="FK_Tbl_Urunler_Tbl_Kategoriler">
+          <End Type="MedicineModel.Tbl_Kategoriler" Role="Tbl_Kategoriler" Multiplicity="0..1" />
+          <End Type="MedicineModel.Tbl_Urunler" Role="Tbl_Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kategoriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_Urunler">
+              <PropertyRef Name="KATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KULLANICIADI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PAROLA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="YETKI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_SiparisDetay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SIPARISID" Type="Int32" />
+          <Property Name="URUNID" Type="Int32" />
+          <NavigationProperty Name="Tbl_Urunler" Relationship="MedicineModel.FK_Tbl_SiparisDetay_Tbl_Urunler" FromRole="Tbl_SiparisDetay" ToRole="Tbl_Urunler" />
+          <NavigationProperty Name="Tbl_Siparisler" Relationship="MedicineModel.FK_Tbl_SiparisDetay_Tbl_Siparisler" FromRole="Tbl_SiparisDetay" ToRole="Tbl_Siparisler" />
+          <Property Name="ADET" Type="Int32" />
+          <Property Name="FIYAT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BIRIMFIYAT" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Tbl_Siparisler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SIPARISADI" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TARIH" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tbl_SiparisDetay" Relationship="MedicineModel.FK_Tbl_SiparisDetay_Tbl_Siparisler" FromRole="Tbl_Siparisler" ToRole="Tbl_SiparisDetay" />
+          <Property Name="DURUM" Type="Boolean" />
+          <Property Name="KDV" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="KAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_SiparisDetay_Tbl_Urunler">
+          <End Type="MedicineModel.Tbl_Urunler" Role="Tbl_Urunler" Multiplicity="0..1" />
+          <End Type="MedicineModel.Tbl_SiparisDetay" Role="Tbl_SiparisDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_SiparisDetay">
+              <PropertyRef Name="URUNID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_SiparisDetay_Tbl_Siparisler">
+          <End Type="MedicineModel.Tbl_Siparisler" Role="Tbl_Siparisler" Multiplicity="0..1" />
+          <End Type="MedicineModel.Tbl_SiparisDetay" Role="Tbl_SiparisDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Siparisler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tbl_SiparisDetay">
+              <PropertyRef Name="SIPARISID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tbl_Cekler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CEKADI" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TARIH" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MedicineModelStoreContainer" CdmEntityContainer="MedicineEntities">
+          <EntitySetMapping Name="Tbl_Urunler">
+            <EntityTypeMapping TypeName="MedicineModel.Tbl_Urunler">
+              <MappingFragment StoreEntitySet="Tbl_Urunler">
+                <ScalarProperty Name="BARKOD" ColumnName="BARKOD" />
+                <ScalarProperty Name="FIYAT" ColumnName="FIYAT" />
+                <ScalarProperty Name="RESIM" ColumnName="RESIM" />
+                <ScalarProperty Name="KATEGORI" ColumnName="KATEGORI" />
+                <ScalarProperty Name="ACIKLAMA" ColumnName="ACIKLAMA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="URUNAD" ColumnName="URUNAD" />
+                <ScalarProperty Name="STOK" ColumnName="STOK" />
+                <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Kategoriler">
+            <EntityTypeMapping TypeName="MedicineModel.Tbl_Kategoriler">
+              <MappingFragment StoreEntitySet="Tbl_Kategoriler">
+                <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+                <ScalarProperty Name="KATEGORIADI" ColumnName="KATEGORIADI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Admin">
+            <EntityTypeMapping TypeName="MedicineModel.Tbl_Admin">
+              <MappingFragment StoreEntitySet="Tbl_Admin">
+                <ScalarProperty Name="YETKI" ColumnName="YETKI" />
+                <ScalarProperty Name="PAROLA" ColumnName="PAROLA" />
+                <ScalarProperty Name="KULLANICIADI" ColumnName="KULLANICIADI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_SiparisDetay">
+            <EntityTypeMapping TypeName="MedicineModel.Tbl_SiparisDetay">
+              <MappingFragment StoreEntitySet="Tbl_SiparisDetay">
+                <ScalarProperty Name="BIRIMFIYAT" ColumnName="BIRIMFIYAT" />
+                <ScalarProperty Name="YIL" ColumnName="YIL" />
+                <ScalarProperty Name="AY" ColumnName="AY" />
+                <ScalarProperty Name="FIYAT" ColumnName="FIYAT" />
+                <ScalarProperty Name="ADET" ColumnName="ADET" />
+                <ScalarProperty Name="URUNID" ColumnName="URUNID" />
+                <ScalarProperty Name="SIPARISID" ColumnName="SIPARISID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Siparisler">
+            <EntityTypeMapping TypeName="MedicineModel.Tbl_Siparisler">
+              <MappingFragment StoreEntitySet="Tbl_Siparisler">
+                <ScalarProperty Name="KAR" ColumnName="KAR" />
+                <ScalarProperty Name="KDV" ColumnName="KDV" />
+                <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+                <ScalarProperty Name="TARIH" ColumnName="TARIH" />
+                <ScalarProperty Name="SIPARISADI" ColumnName="SIPARISADI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cekler">
+            <EntityTypeMapping TypeName="MedicineModel.Tbl_Cekler">
+              <MappingFragment StoreEntitySet="Tbl_Cekler">
+                <ScalarProperty Name="TARIH" ColumnName="TARIH" />
+                <ScalarProperty Name="CEKADI" ColumnName="CEKADI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

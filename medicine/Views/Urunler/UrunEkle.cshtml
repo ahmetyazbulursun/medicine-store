@@ -1,0 +1,86 @@
+﻿@model medicine.Models.Entity.Tbl_Urunler
+
+@{
+    ViewBag.Title = "UrunEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .result {
+        color: #000000;
+        padding: 20px;
+    }
+
+    .row {
+        display: flex;
+    }
+</style>
+
+<form method="post">
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <div class="row g-3">
+                @Html.HiddenFor(x => x.ID)
+                <div class="col-4">
+                    <label for="urunadi">Ürün Adı</label>
+                    @Html.TextBoxFor(x => x.URUNAD, new { @class = "form-control bg-white", @id = "urunadi", @placeholder = "Ürün adı..", @required = "required" })
+                </div>
+                <div class="col-4">
+                    <label for="stoksayisi">Kategori</label>
+                    @Html.DropDownListFor(x => x.Tbl_Kategoriler.ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-select", @id = "urun" })
+                </div>
+                <div class="col-4">
+                    <label for="urunadi">Resim</label>
+                    @Html.TextBoxFor(x => x.RESIM, new { @class = "form-control bg-white", @id = "urunadi", @placeholder = "Link..", @required = "required" })
+                </div>
+                <div class="col-4">
+                    <div class="input-group">
+                        <label for="fiyat" class="input-group">Fiyatı</label>
+                        @Html.TextBoxFor(x => x.FIYAT, new { @class = "form-control bg-white col-4", @id = "fiyat", @placeholder = "Ürün Fiyatı..", @required = "required" })
+                        <input class="input-group-text bg-white fw-bold" size="1" readonly="readonly" type="text" value="₺" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="stoksayisi">Stok Sayısı</label>
+                    @Html.TextBoxFor(x => x.STOK, new { @class = "form-control bg-white", @id = "stoksayisi", @placeholder = "Stok sayısı..", @required = "required" })
+                </div>
+
+                <div class="col-4">
+                    <label for="stokkodu">QR Kodu</label>
+                    <input id="barkod" type="text" name="BARKOD" readonly class="form-control bg-white" placeholder="Barkodu.." required />
+                </div>
+                <div>
+                    <div>
+                        <div id="reader" style="width: 400px;" class="col-sm-12 col-md-12 col-lg-12"></div>
+                    </div>
+                    <div class="col">
+                        <div hidden id="result">Barkod İçeriği..</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="detay">Ürün Detayı</label>
+                    @Html.TextAreaFor(x => x.ACIKLAMA, new { @rows = 15, @class = "form-control bg-white", @id = "detay", @placeholder = "Detay.." })
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg float-end">Ürün Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script src="~/Scripts/html5-qrcode.min.js"></script>
+<script type="text/javascript">
+    function onScanSuccess(qrCodeMessage) {
+        document.getElementById('result').innerHTML = '<span class="result">' + qrCodeMessage + '</span>';
+        var barkod = document.getElementById('barkod');
+        barkod.setAttribute('value', qrCodeMessage);
+    }
+    function onScanError(errorMessage) {
+        //handle scan error
+    }
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+</script>

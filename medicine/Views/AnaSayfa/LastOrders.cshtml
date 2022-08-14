@@ -1,0 +1,23 @@
+﻿@using medicine.Models.Entity
+@model List<Tbl_Siparisler>
+
+<div class="table-responsive">
+    <h3 class="bg-white m-0 p-2 text-center position-relative">Son Oluşturulan 5 Sipariş</h3>
+    <table class="table user-table table-hover table-responsive bg-white">
+        <thead align="center">
+            <tr>
+                <th>Sipariş Adı</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        @foreach (var x in Model)
+        {
+            <tbody align="center">
+                <tr>
+                    <td>@x.SIPARISADI</td>
+                    <td>@x.TARIH</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>

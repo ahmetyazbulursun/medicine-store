@@ -1,0 +1,22 @@
+﻿@model medicine.Models.Entity.Tbl_SiparisDetay
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Siparişe Ürün Ekle</h4>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="post">
+            <div class="modal-body">
+                <div class="form-floating">
+                    @Html.DropDownListFor(x => x.Tbl_Urunler.ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-select", @id = "urun" })
+                    <label for="urun">Ürün Adı</label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary">Ürün Ekle</button>
+            </div>
+        </form>
+    </div>
+</div>

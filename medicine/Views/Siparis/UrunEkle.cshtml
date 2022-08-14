@@ -1,0 +1,34 @@
+﻿@model medicine.Models.Entity.Tbl_SiparisDetay
+
+@{
+    ViewBag.Title = "UrunEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Ürünler</h4>
+                        <form method="post">
+                            <div class="modal-body">
+                                @*<div class="form-floating">
+                                    @Html.DropDownListFor(x => x.Tbl_Urunler.ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-select", @id = "urun" })
+                                    <label for="urun">Ürün Adı</label>
+                                </div>*@
+                                <div class="input-group mb-3">
+                                    @Html.DropDownListFor(x => x.Tbl_Urunler.ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-select", @id = "urun" })
+                                    <input type="text"  name="adet" placeholder="Adet.."  class="input-group-text bg-white"/>
+                                    <button class="btn btn-outline-primary">Ürün Ekle</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

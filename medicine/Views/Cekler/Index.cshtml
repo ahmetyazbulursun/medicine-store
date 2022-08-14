@@ -1,0 +1,53 @@
+﻿@using medicine.Models
+@model List<FileModel>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Çekler</h4>
+                        <div class="clearfix col">
+                            <div class="float-start mb-3 mt-3">
+                                <a href="/Cekler/PdfEkle" class="btn btn-primary text-white">Çek Ekle</a>
+                            </div>
+                            <div class="float-end mb-3 mt-3">
+                                @*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }), new PagedListRenderOptions
+                                {
+                                    LiElementClasses = new List<string>
+                                    { "page-link"}
+                                })*@
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table user-table table-hover" style="table-layout: fixed;" align="center">
+                                <thead align="center">
+                                    <tr>
+                                        <th class="border-top-0">Çek Adı</th>
+                                        <th class="border-top-0">İşlemler</th>
+                                    </tr>
+                                @foreach (FileModel file in Model)
+                                {
+                                    <tbody align="center">
+                                        <tr>
+                                            <td>@file.FileName</td>
+                                            <td>@Html.ActionLink("İndir", "PdfIndir", new { fileName = file.FileName}, new { @class = "btn btn-outline-success" })</td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

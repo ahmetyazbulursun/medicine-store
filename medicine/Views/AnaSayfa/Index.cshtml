@@ -1,0 +1,63 @@
+﻿@using medicine.Models.Entity
+@model List<Tbl_Urunler>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/svg-turkiye-haritasi-master/css/svg-turkiye-haritasi.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+</head>
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-row">
+                            <div class="round rounded-circle text-white d-inline-block text-center bg-success">
+                                <i class="mdi mdi-dropbox fs-3"></i>
+                            </div>
+                            <div class="ms-3 align-self-center">
+                                <h4 class="mb-0">Toplam Ürün Sayısı </h4>
+                            </div>
+                            <div class="ms-auto align-self-center">
+                                <h2 class="font-weight-medium mb-0">@ViewBag.totalProduct</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-row">
+                            <div class="round rounded-circle text-white d-inline-block text-center bg-info">
+                                <i class="mdi mdi-shopping fs-3"></i>
+                            </div>
+                            <div class="ms-3 align-self-center">
+                                <h4 class="mb-0">Toplam Sipariş Sayısı </h4>
+                            </div>
+                            <div class="ms-auto align-self-center">
+                                <h2 class="font-weight-medium mb-0">@ViewBag.totalOrder</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                @Html.Action("LastOrders", "AnaSayfa")
+            </div>
+
+            <div class="col-6">
+                @Html.Action("LastProducts", "AnaSayfa")
+            </div>
+
+        </div>
+    </div>
+</div>

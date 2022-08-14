@@ -1,0 +1,64 @@
+﻿@using medicine.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Tbl_SiparisDetay>
+
+@{
+    ViewBag.Title = "SiparisDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-wrapper" id="report">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            Siparişteki Ürünler
+                        </h4>
+                        <div class="clearfix">
+                            <div class="float-start mb-3 mt-3 fs-4 fst-italic">
+                                Toplam Fiyat: @ViewBag.totalPrice ₺ @ViewBag.kdv8 @ViewBag.kdv18
+                                <hr />
+                            </div>
+                            <div class="float-end mb-3 mt-3">
+                                @Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("SiparisDetay", new { sayfa }), new PagedListRenderOptions
+                                {
+                                    LiElementClasses = new List<string>
+                                    { "page-link"}
+                                })
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table user-table table-hover" style="table-layout: fixed;" align="center">
+                                <thead align="center">
+                                    <tr>
+                                        <th class="border-top-0">Resim</th>
+                                        <th class="border-top-0">Ürün Adı</th>
+                                        <th class="border-top-0">Adet Sayısı</th>
+                                        <th class="border-top-0">Fiyat</th>
+                                        <th class="border-top-0">İşlemler</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var x in Model)
+                                {
+                                    <tbody align="center">
+                                        <tr>
+                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><img width="100" src="@x.Tbl_Urunler.RESIM" class="img-fluid" /></td>
+                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.Tbl_Urunler.URUNAD</td>
+                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.ADET</td>
+                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.FIYAT</td>
+                                            <td>@Html.ActionLink("Sil", "UrunSil", new { id = x.ID }, new { @class = "btn btn-outline-danger", onclick = "return confirm('Ürünü Siparişten Silmek İstediğinize Emin Misiniz?')" })</td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

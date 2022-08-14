@@ -1,0 +1,30 @@
+﻿@model medicine.Models.Entity.Tbl_Cekler
+
+@{
+    ViewBag.Title = "PdfEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <form class="mb-5" method="post" action="/Cekler/PdfEkleme" enctype="multipart/form-data">
+            <div class="row g-3 mb-3">
+                <div class="form-floating">
+                    <input id="cekadı" type="text" name="CEKADI" class="form-control form-control-lg" placeholder="Çek adını giriniz.." required />
+                    <label for="cekadı" class="form-label">Çek Adı</label>
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Dosya:</label>
+                    <input id="dosya" type="file" name="dosya" class="form-control" required />
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Son Tarih:</label>
+                    <input id="date" type="date" name="TARIH" class="form-control" required />
+                </div>
+            </div>
+            <div class="gap-3 d-grid">
+                <button type="submit" value="Kaydet" class="btn btn-success btn-lg text-white">Çek Ekle</button>
+            </div>
+        </form>
+    </div>
+</div>

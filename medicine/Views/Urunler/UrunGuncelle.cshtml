@@ -1,0 +1,54 @@
+﻿@model medicine.Models.Entity.Tbl_Urunler
+
+@{
+    ViewBag.Title = "UrunGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UrunGuncelleme", "Urunler", FormMethod.Post))
+{
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <form class="mb-5">
+            <div class="row g-3">
+                @Html.HiddenFor(x => x.ID)
+                <div class="col-4">
+                    <label for="urunadi">Ürün Adı</label>
+                    @Html.TextBoxFor(x => x.URUNAD, new { @class = "form-control bg-white", @id = "urunadi" })
+                </div>
+                <div class="col-4">
+                    <label for="urunadi">Resim</label>
+                    @Html.TextBoxFor(x => x.RESIM, new { @class = "form-control bg-white", @id = "urunadi", @placeholder = "Link.." })
+                </div>
+                <div class="col-4">
+                    <label for="stoksayisi">Kategori</label>
+                    @Html.DropDownListFor(x => x.Tbl_Kategoriler.ID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-select", @id = "urun" })
+                </div>
+
+                <div class="col-4">
+                    <div class="input-group">
+                        <label for="fiyat" class="input-group">Fiyatı</label>
+                        @Html.TextBoxFor(x => x.FIYAT, new { @class = "form-control bg-white", @id = "fiyat" })
+                        <input class="input-group-text bg-white fw-bold" size="1" readonly="readonly" type="text" value="₺" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="stokkodu">Barkod</label>
+                    @Html.TextBoxFor(x => x.BARKOD, new { @class = "form-control bg-white", @id = "stokkodu" })
+                </div>
+                <div class="col-4">
+                    <label for="stoksayisi">Stok Sayısı</label>
+                    @Html.TextBoxFor(x => x.STOK, new { @class = "form-control bg-white", @id = "stoksayisi" })
+                </div>
+                <div class="col-12">
+                    <label for="detay">Ürün Detayı</label>
+                    @Html.TextAreaFor(x => x.ACIKLAMA, new { @rows = 15, @class = "form-control bg-white", @id = "detay" })
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-warning btn-lg float-end">Güncelle</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+} 

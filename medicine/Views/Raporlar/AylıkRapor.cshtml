@@ -1,0 +1,246 @@
+﻿@using medicine.Models.Entity
+@model List<Tbl_SiparisDetay>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>Aylık Rapor - ZENX Medical</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="~/material-pro-lite-master/assets/images/logo.ico" />
+</head>
+<body>
+
+
+    <form class="input-group input-group-lg p-3">
+        <select name="ara" class="form-select me-2">
+            <option selected disabled>Ay Seçiniz</option>
+            <option value="Ocak">Ocak</option>
+            <option value="Şubat">Şubat</option>
+            <option value="Mart">Mart</option>
+            <option value="Nisan">Nisan</option>
+            <option value="Mayıs">Mayıs</option>
+            <option value="Haziran">Haziran</option>
+            <option value="Temmuz">Temmuz</option>
+            <option value="Ağustos">Ağustos</option>
+            <option value="Eylül">Eylül</option>
+            <option value="Ekim">Ekim</option>
+            <option value="Kasım">Kasım</option>
+            <option value="Aralık">Aralık</option>
+        </select>
+        <select name="ara2" class="form-select me-2">
+            <option value="0" selected disabled>Yıl Seçiniz</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+        </select>
+        <button type="submit" name="ara" class="btn btn-warning"><i class="fa fa-search"></i> Ara</button>
+    </form>
+
+    <div class="text-right">
+        <button style="margin-left: 20px" id="btnReport" class="btn">
+            <i class="bi bi-printer-fill" style="font-size: 40px"></i>
+        </button>
+    </div>
+
+    <div class="col-md-12" id="report">
+        <div class="row">
+
+            <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-sm-offset-1 col-md-offset-3">
+                <div class="row">
+                    <div class="receipt-header">
+                        <div class="col-xs-6 col-sm-6 col-md-6" style="padding-bottom:20px">
+                            <div class="receipt-left">
+                                <img width="150" alt="logo" src="~/material-pro-lite-master/assets/images/teklif-logo.png">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="margin-top:30px; padding: 0;">
+                            <div class="receipt-right">
+                                <div class="row">
+                                    <div class="receipt-header receipt-header-mid">
+                                        <div class="text-right">
+                                            <div class="receipt-right">
+                                                <p><b>Tarih:</b> @DateTime.Now.ToShortDateString()</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5>ZENX MEDICAL</h5>
+                                <p>
+                                    Aylık Rapor
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div>
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Ürün</th>
+                                    <th class="text-center col-2">Birim Fiyatı</th>
+                                    <th class="text-center">Adet</th>
+                                    <th class="text-center col-2">Fiyat</th>
+                                    <th class="text-center">Ay</th>
+                                    <th class="text-center">Yıl</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                @foreach (var x in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">@x.Tbl_Urunler.URUNAD</td>
+                                        <td class="text-center">@x.BIRIMFIYAT ₺</td>
+                                        <td class="text-center">@x.ADET</td>
+                                        <td class="text-center">@x.FIYAT ₺</td>
+                                        <td class="text-center">@x.AY</td>
+                                        <td class="text-center">@x.YIL</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style type="text/css">
+        body {
+            background: #eee;
+            margin-top: 20px;
+        }
+
+        .text-danger strong {
+            color: #9f181c;
+        }
+
+        .receipt-main {
+            background: #ffffff none repeat scroll 0 0;
+            border-bottom: 12px solid #333333;
+            border-top: 12px solid #9f181c;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 40px 30px !important;
+            position: relative;
+            box-shadow: 0 1px 21px #acacac;
+            color: #333333;
+            font-family: open sans;
+        }
+
+            .receipt-main p {
+                color: #333333;
+                font-family: open sans;
+                line-height: 1.42857;
+            }
+
+        .receipt-footer h1 {
+            font-size: 15px;
+            font-weight: 400 !important;
+            margin: 0 !important;
+        }
+
+        .receipt-main::after {
+            background: #414143 none repeat scroll 0 0;
+            content: "";
+            height: 5px;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: -13px;
+        }
+
+        .receipt-main thead {
+            background: #414143 none repeat scroll 0 0;
+        }
+
+            .receipt-main thead th {
+                color: #fff;
+            }
+
+        .receipt-right h5 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 7px 0;
+        }
+
+        .receipt-right p {
+            font-size: 12px;
+            margin: 0px;
+        }
+
+            .receipt-right p i {
+                text-align: center;
+                width: 18px;
+            }
+
+        .receipt-main td {
+            padding: 9px 20px !important;
+        }
+
+        .receipt-main th {
+            padding: 13px 20px !important;
+        }
+
+        .receipt-main td {
+            font-size: 13px;
+            font-weight: initial !important;
+        }
+
+            .receipt-main td p:last-child {
+                margin: 0;
+                padding: 0;
+            }
+
+            .receipt-main td h2 {
+                font-size: 20px;
+                font-weight: 900;
+                margin: 0;
+                text-transform: uppercase;
+            }
+
+        .receipt-header-mid .receipt-left h1 {
+            font-weight: 100;
+            margin: 34px 0 0;
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        .receipt-header-mid {
+            margin: 24px 0;
+            overflow: hidden;
+        }
+
+        #container {
+            background-color: #dcdcdc;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $('#btnReport').click(function () {
+            document.body.innerHTML = document.all.item("report").innerHTML
+            window.print()
+            window.location.reload()
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿@model medicine.Models.Entity.Tbl_Urunler
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <form class="mb-5">
+            <div class="row g-3">
+                <div class="col-4">
+                    <img src="@Html.DisplayFor(x=>x.RESIM)" class="img-fluid" />
+                </div>
+                <div class="col-8">
+                    <br />
+                    <label for="urunadi">Ürün Adı</label>
+                    @Html.TextBoxFor(x => x.URUNAD, new { @class = "form-control bg-white mb-3", @id = "urunadi", @readonly = "readonly" })
+                    <label for="kategori">Kategori</label>
+                    @Html.TextBoxFor(x => x.Tbl_Kategoriler.KATEGORIADI, new { @class = "form-control bg-white mb-3", @id = "kategori", @readonly = "readonly" })
+                    <label for="stokkodu">Barkod</label>
+                    @Html.TextBoxFor(x => x.BARKOD, new { @class = "form-control bg-white mb-3", @id = "stokkodu", @readonly = "readonly" })
+                    <label for="stoksayisi">Stok Sayısı</label>
+                    @Html.TextBoxFor(x => x.STOK, new { @class = "form-control bg-white mb-3", @id = "stoksayisi", @readonly = "readonly" })
+                    <label for="fiyat">Fiyat</label>
+                    @Html.TextBoxFor(x => x.FIYAT, new { @class = "form-control bg-white mb-3", @id = "fiyat", @readonly = "readonly" })
+                </div>
+                <div class="col-12">
+                    <label for="detay">Ürün Detayı</label>
+                    @Html.TextAreaFor(x => x.ACIKLAMA, new { @rows = 15, @class = "form-control bg-white", @id = "detay", @readonly = "readonly" })
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
